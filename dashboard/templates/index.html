@@ -1,0 +1,16 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Site Safety Dashboard</title>
+<style>
+body{font-family:Arial,sans-serif;background:#ebebe3;margin:0;padding:24px;color:#222}
+h1{color:#003a41}#lvl{padding:20px;border-radius:12px;color:#fff;font-size:32px;font-weight:bold;background:#777}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-top:16px}
+.card{background:#fff;border-radius:10px;padding:14px}.card b{display:block;font-size:24px;color:#003a41}
+</style></head><body>
+<h1>Autonomous Site Safety Robot</h1><div id="lvl">NO DATA</div><div class="grid" id="g"></div>
+<script>
+const col={SAFE:"#2e7d32",WARNING:"#ef8f00",DANGER:"#c62828",CALIBRATING:"#555"};
+async function tick(){try{const s=(await (await fetch("/api/state")).json()).now;
+const l=document.getElementById("lvl");l.textContent=s.level+(s.risk!==undefined?"  (risk "+s.risk+")":"");l.style.background=col[s.level]||"#777";
+const f=[["Tilt (deg)",s.tilt_deg],["Change z-score",s.z],["Distance (m)",s.dist_m],["Gas",s.gas],["Temp (C)",s.temp],["Humidity %",s.hum]];
+document.getElementById("g").innerHTML=f.map(x=>`<div class="card">${x[0]}<b>${x[1]??"-"}</b></div>`).join("")}catch(e){}}
+setInterval(tick,1000);tick();
+</script></body></html>

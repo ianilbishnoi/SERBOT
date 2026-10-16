@@ -1,0 +1,6 @@
+numpy
+paho-mqtt>=2.0
+flask
+opencv-python
+ultralytics
+pytest

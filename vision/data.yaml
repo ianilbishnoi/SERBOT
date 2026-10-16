@@ -1,0 +1,9 @@
+# Dataset layout expected by Ultralytics YOLO. Download CHV (Wang et al. 2021) or Pictor-PPE
+# and place under data/ppe/. Edit class names to match the dataset you use.
+path: ../data/ppe
+train: images/train
+val: images/val
+names:
+  0: person
+  1: vest
+  2: helmet
